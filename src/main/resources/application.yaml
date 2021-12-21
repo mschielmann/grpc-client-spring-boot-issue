@@ -1,0 +1,15 @@
+grpc:
+  server:
+    healthServiceEnabled: true
+    reflectionServiceEnabled: true
+    port: 9090
+    shutdownGracePeriod: 30s
+    enableKeepAlive: true
+    keepAliveTime: 1m
+    keepAliveTimeout: 8s
+    permitKeepAliveTime: 30s
+    permitKeepAliveWithoutCalls: true
+  client:
+    test-client:
+      address: "static://localhost:9090"
+      negotiationType: PLAINTEXT

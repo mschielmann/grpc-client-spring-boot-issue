@@ -1,6 +1,5 @@
 package pl.mschielmann.test;
 
-import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -8,12 +7,20 @@ import pl.mschielmann.test.TestGrpcServiceGrpc.TestGrpcServiceBlockingStub;
 import pl.mschielmann.test.TestProtos.SendTestMessageRequest;
 import pl.mschielmann.test.TestProtos.SendTestMessageResponse;
 
-
 @Component
 public class Client {
 
-    @GrpcClient("localServer")
+    /*
+    // This approach works fine on its own.
+    @GrpcClient("test-client")
     private TestGrpcServiceBlockingStub testService;
+    */
+
+    // Not working approach - beans are not ready to be injected (when using @GrpcClientBean) or causing circular dependencies when using @Bean with @GrpcClient
+    private final TestGrpcServiceBlockingStub testService;
+    public Client(TestGrpcServiceBlockingStub testService) {
+        this.testService = testService;
+    }
 
     @Scheduled(fixedRate = 5000, initialDelay = 2000)
     public void callServer() {
