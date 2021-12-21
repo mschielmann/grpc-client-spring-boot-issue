@@ -11,6 +11,7 @@ import pl.mschielmann.test.TestGrpcServiceGrpc.TestGrpcServiceBlockingStub;
 public class ClientConfiguration2 {
     final static String TEST_CLIENT = "test-client";
 
+    // it's required to create that bean. @GrpcClientBean won't do it for you ;)
     @Bean
     public TestGrpcServiceBlockingStub testService(TestGrpcServiceBlockingStub stub) {
         return stub;
