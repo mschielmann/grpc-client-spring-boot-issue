@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pl.mschielmann.test;
+
+option java_package = "pl.mschielmann.test";
+option java_multiple_files = false;
+option java_outer_classname = "TestProtos";
+
+service TestGrpcService {
+  rpc SendTestMessage(SendTestMessageRequest) returns (SendTestMessageResponse);
+}
+
+message SendTestMessageRequest {
+  string message = 1;
+}
+
+message SendTestMessageResponse {
+  string message = 1;
+}
